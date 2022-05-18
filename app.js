@@ -138,7 +138,8 @@ app.use('/', indexRouter);
 //app.use('/users', usersRouter);
 app.use('/home', homeRouter);
 
-app.get('/auth/facebook', passport.authenticate('facebook', { scope : 'email' }));
+//app.get('/auth/facebook', passport.authenticate('facebook', { scope : 'email' }));
+app.get('/facebook', passport.authenticate('facebook'));
 
 app.get('/auth/facebook/callback',
         passport.authenticate('facebook', {

@@ -13,6 +13,7 @@ const jwt = require('jsonwebtoken');
 const User = require('./models/user');
 const compression = require('compression');
 const helmet = require('helmet');
+const cors = require('cors');
 require('dotenv').config();
 
 var indexRouter = require('./routes/index');

@@ -143,8 +143,8 @@ app.get('/auth/facebook', passport.authenticate('facebook'));
 
 app.get('/auth/facebook/callback',
         passport.authenticate('facebook', {
-            successRedirect : '/',
-            failureRedirect : '/sign-in'
+            successRedirect : 'http://localhost:3000/',
+            failureRedirect : 'http://localhost:3000/sign-in'
         }));
 
 // catch 404 and forward to error handler

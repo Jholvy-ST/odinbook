@@ -69,9 +69,6 @@ passport.use(new facebookStrategy({
 },// facebook will send back the token and profile
 function(token, refreshToken, profile, done) {
 
-	// asynchronous
-	process.nextTick(function() {
-
 			// find the user in the database based on their facebook id
 			User.findOne({ uid : profile.id }, function(err, user) {
 
@@ -107,8 +104,6 @@ function(token, refreshToken, profile, done) {
 					}
 
 			});
-
-	})
 
 }));
 

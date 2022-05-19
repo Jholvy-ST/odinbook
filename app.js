@@ -67,7 +67,7 @@ passport.use(new facebookStrategy({
 	profileFields: ['id', 'displayName', 'name', 'gender', 'picture.type(large)','email']
 
 },// facebook will send back the token and profile
-function(token, refreshToken, profile, done) {
+function(token, refreshToken, profile, cb) {
 
 	// asynchronous
 	process.nextTick(function() {
@@ -102,7 +102,7 @@ function(token, refreshToken, profile, done) {
 											throw err;
 
 									// if successful, return the new user
-									return done(null, newUser);
+									return cb(null, newUser);
 							});
 					}
 

@@ -63,7 +63,7 @@ passport.use(new facebookStrategy({
 	// pull in our app id and secret from our auth.js file
 	clientID        : process.env.APP_ID,
 	clientSecret    : process.env.APP_SECRET,
-	callbackURL     : "/facebook/callback",
+	callbackURL     : "/auth/facebook/callback",
 	profileFields: ['id', 'displayName', 'name', 'gender', 'picture.type(large)','email']
 
 },// facebook will send back the token and profile

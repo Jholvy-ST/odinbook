@@ -32,7 +32,7 @@ db.on("error", console.error.bind(console, "mongo connection error"));
 
 app.use(session({ secret: "cats", resave: false, saveUninitialized: true }));
 
-passport.use(
+/*passport.use(
   new LocalStrategy((username, password, done) => {
     User.findOne({ username: username }, (err, user) => {
       if (err) { 
@@ -43,7 +43,7 @@ passport.use(
       }
       /*if (user.password !== password) {
         return done(null, false, { message: "Incorrect password" });
-      }*/
+      }
 			bcrypt.compare(password, user.password, (err, res) => {
 				if (res) {
 					// passwords match! log user in
@@ -56,11 +56,10 @@ passport.use(
       //return done(null, user);
     });
   })
-);
+);*/
 
 passport.use(new facebookStrategy({
- 
-	// pull in our app id and secret from our auth.js file
+
 	clientID        : process.env.APP_ID,
 	clientSecret    : process.env.APP_SECRET,
 	callbackURL     : "https://agile-springs-89726.herokuapp.com/facebook/callback",

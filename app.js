@@ -64,7 +64,8 @@ passport.use(new facebookStrategy({
 	clientID        : process.env.APP_ID,
 	clientSecret    : process.env.APP_SECRET,
 	callbackURL     : "https://agile-springs-89726.herokuapp.com/facebook/callback",
-	profileFields: ['id', 'displayName', 'name', 'gender', 'picture.type(large)','email']
+	profileFields: ['id', 'displayName', 'name', 'gender', 'picture.type(large)','email'],
+	passReqToCallback: true
 
 },// facebook will send back the token and profile
 function(token, refreshToken, profile, cb) {

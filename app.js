@@ -91,7 +91,7 @@ function(token, refreshToken, profile, cb) {
 
 							// set all of the facebook information in our user model
 							newUser.uid    = profile.id; // set the users facebook id                  
-							newUser.token = token; // we will save the token that facebook provides to the user                    
+							//newUser.token = token; // we will save the token that facebook provides to the user                    
 							newUser.name  = profile.name.givenName + ' ' + profile.name.familyName; // look at the passport user profile to see how names are returned
 							newUser.email = profile.emails[0].value; // facebook can return multiple emails so we'll take the first
 							newUser.gender = profile.gender

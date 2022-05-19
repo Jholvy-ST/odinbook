@@ -63,14 +63,14 @@ passport.use(new facebookStrategy({
 	// pull in our app id and secret from our auth.js file
 	clientID        : process.env.APP_ID,
 	clientSecret    : process.env.APP_SECRET,
-	callbackURL     : "http://localhost:3000",
+	callbackURL     : "https://agile-springs-89726.herokuapp.com/auth/facebook/callback",
 	profileFields: ['id', 'displayName', 'name', 'gender', 'picture.type(large)','email']
 
 },// facebook will send back the token and profile
 function(token, refreshToken, profile, done) {
 
 			// find the user in the database based on their facebook id
-			User.find({ uid : profile.id }, function(err, user) {
+			User.findOne({ uid : profile.id }, function(err, user) {
 
 					// if there is an error, stop everything and return that
 					// ie an error connecting to the database

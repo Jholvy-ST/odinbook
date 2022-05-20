@@ -87,10 +87,10 @@ function(token, refreshToken, profile, cb) {
 							return done(null, user); // user found, return that user
 					} else {
 							// if there is no user found with that facebook id, create them
-							var newUser            = new User();
+							let newUser = new User();
 
 							// set all of the facebook information in our user model
-							newUser.uid    = profile.id; // set the users facebook id                  
+							newUser.uid = profile.id; // set the users facebook id                  
 							newUser.token = token; // we will save the token that facebook provides to the user                    
 							newUser.name  = profile.name; // look at the passport user profile to see how names are returned
 							newUser.email = profile.email // facebook can return multiple emails so we'll take the first

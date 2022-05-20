@@ -11,7 +11,6 @@ const Schema = mongoose.Schema;
 );*/
 
 const UserSchema = mongoose.Schema({
-	uid: {type: String},
 	token: {type: String},
 	email: {type: String},
 	name: {type: String},

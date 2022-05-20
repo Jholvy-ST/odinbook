@@ -62,7 +62,7 @@ passport.use(new facebookStrategy({
 
 	clientID        : process.env.APP_ID,
 	clientSecret    : process.env.APP_SECRET,
-	callbackURL     : "https://agile-springs-89726.herokuapp.com/facebook/callback",
+	callbackURL     : "https://agile-springs-89726.herokuapp.com/auth/facebook/callback",
 	//profileFields: ['id', 'displayName', 'name', 'gender', 'picture.type(large)','email'],
 	passReqToCallback: true
 
@@ -147,11 +147,18 @@ app.use('/home', homeRouter);
 //app.get('/auth/facebook', passport.authenticate('facebook', { scope : 'email' }));
 app.get('/auth/facebook', passport.authenticate('facebook'));
 
-app.get('/facebook/callback',
+/*app.get('/auth/facebook/callback',
         passport.authenticate('facebook', {
             successRedirect : 'http://localhost:3000/',
             failureRedirect : 'http://localhost:3000/sign-in'
-        }));
+        }));*/
+
+app.get('/auth/facebook/callback',
+passport.authenticate('facebook', { failureRedirect: 'http://localhost:3000/sign-in' }),
+function(req, res) {
+	// Successful authentication, redirect home.
+	res.redirect('http://localhost:3000/');
+});
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

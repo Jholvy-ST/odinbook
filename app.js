@@ -73,7 +73,7 @@ function(token, refreshToken, profile, cb) {
 	process.nextTick(function() {
 
 			// find the user in the database based on their facebook id
-			User.findById(profile.id, function(err, user) {
+			User.findOne({facebookId: profile.id}, function(err, user) {
 
 					// if there is an error, stop everything and return that
 					// ie an error connecting to the database
@@ -90,9 +90,9 @@ function(token, refreshToken, profile, cb) {
 							let newUser = new User();
 
 							// set all of the facebook information in our user model
-							newUser.uid = profile.id; // set the users facebook id                  
+							newUser.facebookId = profile.id; // set the users facebook id                  
 							newUser.token = token; // we will save the token that facebook provides to the user                    
-							newUser.name  = profile.name; // look at the passport user profile to see how names are returned
+							newUser.name = profile.name; // look at the passport user profile to see how names are returned
 							newUser.email = profile.email // facebook can return multiple emails so we'll take the first
 							newUser.gender = profile.gender
 							newUser.pic = profile.picture

@@ -77,8 +77,8 @@ function(token, refreshToken, profile, cb) {
 
 					// if there is an error, stop everything and return that
 					// ie an error connecting to the database
-					if (err)
-							return done(err);
+					/*if (err)
+							return done(err);*/
 
 					// if the user is found, then log them in
 					if (user) {
@@ -98,8 +98,8 @@ function(token, refreshToken, profile, cb) {
 							newUser.pic = profile.photos[0].value
 							// save our user to the database
 							newUser.save(function(err) {
-									if (err)
-											throw err;
+									/*if (err)
+											throw err;*/
 
 									// if successful, return the new user
 									return cb(null, newUser);

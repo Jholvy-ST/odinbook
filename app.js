@@ -62,7 +62,7 @@ passport.use(new facebookStrategy({
 
 	clientID        : process.env.APP_ID,
 	clientSecret    : process.env.APP_SECRET,
-	callbackURL     : "https://agile-springs-89726.herokuapp.com/auth/facebook/callback",
+	callbackURL     : "/auth/facebook/callback",
 	profileFields: ['id', 'name', 'gender', 'picture.type(large)','email'],
 	passReqToCallback: true
 

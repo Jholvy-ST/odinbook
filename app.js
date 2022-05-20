@@ -95,7 +95,7 @@ function(token, refreshToken, profile, cb) {
 							newUser.name = profile.name; // look at the passport user profile to see how names are returned
 							newUser.email = profile.email // facebook can return multiple emails so we'll take the first
 							newUser.gender = profile.gender
-							newUser.pic = profile.profile_pic
+							newUser.pic = profile.photos[0].value
 							// save our user to the database
 							newUser.save(function(err) {
 									if (err)

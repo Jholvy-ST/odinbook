@@ -84,7 +84,7 @@ function(token, refreshToken, profile, cb) {
 					if (user) {
 							console.log("user found")
 							console.log(user)
-							return done(null, user); // user found, return that user
+							return cb(null, user); // user found, return that user
 					} else {
 							// if there is no user found with that facebook id, create them
 							let newUser = new User();

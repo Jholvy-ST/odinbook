@@ -5,7 +5,8 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const session = require("express-session");
 const passport = require("passport");
-const facebookStrategy = require('passport-facebook').Strategy
+const facebookStrategy = require('passport-facebook').Strategy;
+const FacebookTokenStrategy = require('passport-facebook-token');
 const LocalStrategy = require("passport-local").Strategy;
 const mongoose = require("mongoose");
 const bcrypt = require('bcryptjs');
@@ -58,7 +59,7 @@ app.use(session({ secret: "cats", resave: false, saveUninitialized: true }));
   })
 );*/
 
-passport.use(new facebookStrategy({
+/*passport.use(new facebookStrategy({
 
 	clientID        : process.env.APP_ID,
 	clientSecret    : process.env.APP_SECRET,
@@ -77,8 +78,8 @@ function(token, refreshToken, profile, cb) {
 
 					// if there is an error, stop everything and return that
 					// ie an error connecting to the database
-					/*if (err)
-							return done(err);*/
+					if (err)
+							return done(err);
 
 					// if the user is found, then log them in
 					if (user) {
@@ -98,9 +99,10 @@ function(token, refreshToken, profile, cb) {
 							newUser.pic = profile.photos[0].value
 							// save our user to the database
 							newUser.save(function(err) {
-									/*if (err)
-											throw err;*/
-
+									if (err) {
+										throw err;
+									}
+										
 									// if successful, return the new user
 									return cb(null, newUser);
 							});
@@ -110,12 +112,41 @@ function(token, refreshToken, profile, cb) {
 
 	})
 
-}/*
-	function(accessToken, refreshToken, profile, cb) {
-		User.findOrCreate({ facebookId: profile.id }, function (err, user) {
-			return cb(err, user);
-		});
-	}*/
+}
+));*/
+
+passport.use(new FacebookTokenStrategy({
+	clientID: process.env.APP_ID,
+	clientSecret: process.env.APP_SECRET
+}, function(accessToken, refreshToken, profile, done) {
+	User.find({uid: profile.id}, function (error, user) {
+		if (user) {
+			console.log("user found")
+			console.log(user)
+			return done(null, user); // user found, return that user
+		} else {
+				// if there is no user found with that facebook id, create them
+				let newUser = new User();
+
+				// set all of the facebook information in our user model
+				newUser.facebookId = profile.id; // set the users facebook id                  
+				newUser.token = token; // we will save the token that facebook provides to the user                    
+				newUser.name = profile.name; // look at the passport user profile to see how names are returned
+				newUser.email = profile.email // facebook can return multiple emails so we'll take the first
+				newUser.gender = profile.gender
+				newUser.pic = profile.photos[0].value
+				// save our user to the database
+				newUser.save(function(err) {
+						if (err) {
+							throw err;
+						}
+							
+						// if successful, return the new user
+						return done(null, newUser);
+				});
+		}
+	});
+}
 ));
 
 passport.serializeUser(function(user, done) {
@@ -159,6 +190,14 @@ function(req, res) {
 	// Successful authentication, redirect home.
 	res.redirect('http://localhost:3000/');
 });
+
+app.post('/auth/facebook/token',
+  passport.authenticate('facebook-token'),
+  function (req, res) {
+    // do something with req.user
+    res.send(req.user? 200 : 401);
+  }
+);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

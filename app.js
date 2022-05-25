@@ -130,7 +130,7 @@ passport.use(new FacebookTokenStrategy({
 
 				// set all of the facebook information in our user model
 				newUser.facebookId = profile.id; // set the users facebook id                  
-				newUser.token = token; // we will save the token that facebook provides to the user                    
+				newUser.token = accessToken; // we will save the token that facebook provides to the user                    
 				newUser.name = profile.name; // look at the passport user profile to see how names are returned
 				newUser.email = profile.email // facebook can return multiple emails so we'll take the first
 				newUser.gender = profile.gender
@@ -191,7 +191,7 @@ function(req, res) {
 	res.redirect('http://localhost:3000/');
 });
 
-app.post('/auth/facebook/token',
+app.get('/auth/facebook/token',
   passport.authenticate('facebook-token'),
   function (req, res) {
     // do something with req.user

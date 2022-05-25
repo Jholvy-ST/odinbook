@@ -137,12 +137,12 @@ passport.use(new FacebookTokenStrategy({
 				newUser.pic = profile.photos[0].value
 				// save our user to the database
 				newUser.save(function(err) {
-						if (err) {
+						/*if (err) {
 							throw err;
-						}
+						}*/
 							
 						// if successful, return the new user
-						return done(null, newUser);
+						return done(err, newUser);
 				});
 		}
 	});

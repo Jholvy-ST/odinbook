@@ -210,7 +210,7 @@ app.use(function(req, res, next) {
 
 app.get("/log-out", (req, res) => {
   req.logout();
-  res.redirect("/");
+  //res.redirect("/");
 });
 
 // error handler

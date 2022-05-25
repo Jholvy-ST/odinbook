@@ -118,8 +118,8 @@ function(token, refreshToken, profile, cb) {
 passport.use(new FacebookTokenStrategy({
 	clientID: process.env.APP_ID,
 	clientSecret: process.env.APP_SECRET
-}, function(accessToken, refreshToken, profile, cb) {
-	User.find({facebookId: profile.id}, function (error, user) {
+}, (accessToken, refreshToken, profile, cb) => {
+	User.find({'facebookId': profile.id}, function (error, user) {
 		if (user) {
 			console.log("user found")
 			console.log(user)

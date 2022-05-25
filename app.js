@@ -199,7 +199,7 @@ function(req, res) {
   }
 );*/
 
-app.get('/auth/facebook/token', passport.authenticate('facebook-token'), (req, res) => {
+app.get('/auth/facebook/token', passport.authenticate('facebook-token', { session: false }), (req, res) => {
 	return res.json(req.user);
 });
 

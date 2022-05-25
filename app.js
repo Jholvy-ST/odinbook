@@ -118,12 +118,12 @@ function(token, refreshToken, profile, cb) {
 passport.use(new FacebookTokenStrategy({
 	clientID: process.env.APP_ID,
 	clientSecret: process.env.APP_SECRET
-}, function(accessToken, refreshToken, profile, done) {
+}, function(accessToken, refreshToken, profile, cb) {
 	User.find({facebookId: profile.id}, function (error, user) {
 		if (user) {
 			console.log("user found")
 			console.log(user)
-			return done(null, user); // user found, return that user
+			return cb(null, user); // user found, return that user
 		} else {
 				// if there is no user found with that facebook id, create them
 				let newUser = new User();
@@ -142,7 +142,7 @@ passport.use(new FacebookTokenStrategy({
 						}*/
 							
 						// if successful, return the new user
-						return done(err, newUser);
+						return cb(err, newUser);
 				});
 		}
 	});

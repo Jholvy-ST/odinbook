@@ -118,8 +118,26 @@ function(token, refreshToken, profile, cb) {
 passport.use(new FacebookTokenStrategy({
 	clientID: process.env.APP_ID,
 	clientSecret: process.env.APP_SECRET
-}, (accessToken, refreshToken, profile, cb) => {
-	User.find({'facebookId': profile.id}, function (error, user) {
+}, async (accessToken, refreshToken, profile, cb) => {
+	const user  = await User.findOne({'facebookId': profile.id});
+
+	if (user) {
+		return cb(null, user);
+	} else {
+		const newUser = new User(
+			{
+				facebookId: profile.id,
+				name: profile.name,
+				email: profile.email,
+				gender: profile.gender,
+				pic: profile.photos[0].value
+			}
+		)
+
+		newUser.save();
+		cb(null, newUser)
+	}
+	/*User.find({'facebookId': profile.id}, function (error, user) {
 		if (user) {
 			console.log("user found")
 			console.log(user)
@@ -137,15 +155,15 @@ passport.use(new FacebookTokenStrategy({
 				newUser.pic = profile.photos[0].value
 				// save our user to the database
 				newUser.save(function(err) {
-						/*if (err) {
+						if (err) {
 							throw err;
-						}*/
+						}
 							
 						// if successful, return the new user
 						return cb(err, newUser);
 				});
 		}
-	});
+	});*/
 }
 ));
 

@@ -134,8 +134,15 @@ passport.use(new FacebookTokenStrategy({
 			}
 		)
 
-		newUser.save();
-		cb(null, newUser)
+		newUser.save( (err) => {
+			if (err) {
+				throw err;
+			}
+				
+			// if successful, return the new user
+			return cb(null, newUser);
+	});
+		//cb(null, newUser)
 	}
 	/*User.find({'facebookId': profile.id}, function (error, user) {
 		if (user) {

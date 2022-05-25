@@ -191,13 +191,17 @@ function(req, res) {
 	res.redirect('http://localhost:3000/');
 });
 
-app.get('/auth/facebook/token',
+/*app.get('/auth/facebook/token',
   passport.authenticate('facebook-token'),
   function (req, res) {
     // do something with req.user
     res.send(req.user? 200 : 401);
   }
-);
+);*/
+
+app.get('/auth/facebook/token', passport.authenticate('facebook-token'), (req, res) => {
+	return res.json(req.user);
+});
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

@@ -17,6 +17,12 @@ const helmet = require('helmet');
 const cors = require('cors');
 require('dotenv').config();
 
+const dev_db_url  = process.env.DBURL;
+const mongoDB = process.env.MONGODB_URI || dev_db_url;
+mongoose.connect(mongoDB, { useUnifiedTopology: true, useNewUrlParser: true });
+const db = mongoose.connection;
+db.on("error", console.error.bind(console, "mongo connection error"));
+
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 const homeRouter = require('./routes/home')
@@ -24,12 +30,6 @@ const homeRouter = require('./routes/home')
 var app = express();
 
 app.use(cors())
-
-const dev_db_url  = process.env.DBURL;
-const mongoDB = process.env.MONGODB_URI || dev_db_url;
-mongoose.connect(mongoDB, { useUnifiedTopology: true, useNewUrlParser: true });
-const db = mongoose.connection;
-db.on("error", console.error.bind(console, "mongo connection error"));
 
 app.use(session({ secret: "cats", resave: false, saveUninitialized: true }));
 

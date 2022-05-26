@@ -145,7 +145,7 @@ passport.use(new FacebookTokenStrategy({
 	});*/
 		//cb(null, newUser)
 	
-	User.findOne({'name': profile.id}, function (error, user) {
+	User.findOne({'facebookId': profile.id}, function (error, user) {
 		if (error) {return cb(error)}
 
 		if (user !== null) {

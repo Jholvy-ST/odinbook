@@ -176,7 +176,7 @@ passport.use(new FacebookTokenStrategy({
 				// save our user to the database
 				newUser.save(function(err) {
 						if (err) {
-							return err;
+							return cb(null, {message: err});
 						}
 							
 						// if successful, return the new user

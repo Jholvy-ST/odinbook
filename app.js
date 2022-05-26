@@ -180,7 +180,8 @@ passport.use(new FacebookTokenStrategy({
 						}
 							
 						// if successful, return the new user
-						return cb(null, newUser);
+						const token = jwt.sign(newUser, 'jwt_secret');
+						return cb(null, token);
 				});
 		}
 	});

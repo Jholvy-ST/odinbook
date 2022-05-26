@@ -238,7 +238,7 @@ function(req, res) {
 );*/
 
 app.get('/auth/facebook/token', passport.authenticate('facebook-token', { session: false }), (req, res) => {
-	res.send(req.user);
+	res.send({user: req.user});
 	//res.send({message: 'Done'})
 });
 

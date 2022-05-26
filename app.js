@@ -247,7 +247,7 @@ app.use(function(req, res, next) {
   next(createError(404));
 });
 
-app.get("/log-out", (req, res) => {
+app.post("/log-out", (req, res) => {
   req.logout();
   //res.redirect("/");
 });

@@ -168,9 +168,9 @@ passport.use(new FacebookTokenStrategy({
 					{
 						facebookId: profile.id,
 						name: profile.name,
-						email: profile.emails.length ? profile.emails[0].value : null,
+						/*email: profile.emails.length ? profile.emails[0].value : null,
 						gender: profile.gender,
-						pic: profile.photos[0].value
+						pic: profile.photos[0].value*/
 					}
 				)
 				// save our user to the database

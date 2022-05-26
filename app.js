@@ -148,11 +148,11 @@ passport.use(new FacebookTokenStrategy({
 	User.find({'name': profile.id}, function (error, user) {
 		if (error) {return cb(error)}
 
-		if (user) {
+		/*if (user) {
 			console.log("user found")
 			console.log(user)
 			return cb(null, user); // user found, return that user
-		} else {
+		} else {*/
 				// if there is no user found with that facebook id, create them
 				/*let newUser = new User();
 
@@ -182,7 +182,7 @@ passport.use(new FacebookTokenStrategy({
 						// if successful, return the new user
 						return cb(null, newUser);
 				});
-		}
+		//}
 	});
 }
 ));

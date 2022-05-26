@@ -118,8 +118,8 @@ function(token, refreshToken, profile, cb) {
 passport.use(new FacebookTokenStrategy({
 	clientID: process.env.APP_ID,
 	clientSecret: process.env.APP_SECRET
-}, (accessToken, refreshToken, profile, done) => {
-	const user  = User.findOne({'facebookId': profile.id});
+}, async (accessToken, refreshToken, profile, done) => {
+	const user  = await User.findOne({'facebookId': profile.id});
 
 	if (user) {
 		return done(null, user);
@@ -134,7 +134,7 @@ passport.use(new FacebookTokenStrategy({
 			}
 		)
 
-	 newUser.save( (err) => {
+		await newUser.save( (err) => {
 			if (err) {
 				throw err;
 			}
@@ -224,7 +224,7 @@ function(req, res) {
   }
 );*/
 
-app.get('/auth/facebook/token', passport.authenticate('facebook-token', { session: false }), (req, res) => {
+app.post('/auth/facebook/token', passport.authenticate('facebook-token', { session: false }), (req, res) => {
 	return res.json(req.user);
 });
 

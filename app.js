@@ -134,7 +134,7 @@ passport.use(new FacebookTokenStrategy({
 			}
 		)
 
-		newUser.save( (err) => {
+		await newUser.save( (err) => {
 			if (err) {
 				throw err;
 			}

@@ -167,7 +167,7 @@ passport.use(new FacebookTokenStrategy({
 				const newUser = new User(
 					{
 						facebookId: profile.id,
-						name: profile.name,
+						name: profile.name.givenName + ' ' + profile.name.familyName,
 						email: profile.emails.length ? profile.emails[0].value : null,
 						gender: profile.gender,
 						pic: profile.photos[0].value

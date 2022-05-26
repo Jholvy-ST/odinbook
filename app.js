@@ -119,7 +119,7 @@ passport.use(new FacebookTokenStrategy({
 	clientID: process.env.APP_ID,
 	clientSecret: process.env.APP_SECRET
 }, (accessToken, refreshToken, profile, cb) => {
-	const user  = User.findOne({'facebookId': profile.id});
+	/*const user  = User.findOne({'facebookId': profile.id});
 
 	if (user) {
 		return cb(null, user);
@@ -142,10 +142,10 @@ passport.use(new FacebookTokenStrategy({
 			
 		// if successful, return the new user
 		return cb(null, newUser);
-	});
+	});*/
 		//cb(null, newUser)
 	
-	/*User.find({'facebookId': profile.id}, function (error, user) {
+	User.find({'facebookId': profile.id}, function (error, user) {
 		if (user) {
 			console.log("user found")
 			console.log(user)
@@ -171,7 +171,7 @@ passport.use(new FacebookTokenStrategy({
 						return cb(err, newUser);
 				});
 		}
-	});*/
+	});
 }
 ));
 

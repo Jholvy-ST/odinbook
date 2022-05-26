@@ -146,6 +146,8 @@ passport.use(new FacebookTokenStrategy({
 		//cb(null, newUser)
 	
 	User.find({'facebookId': profile.id}, function (error, user) {
+		if (error) {return cb(error)}
+
 		if (user) {
 			console.log("user found")
 			console.log(user)

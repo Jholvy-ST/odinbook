@@ -118,11 +118,11 @@ function(token, refreshToken, profile, cb) {
 passport.use(new FacebookTokenStrategy({
 	clientID: process.env.APP_ID,
 	clientSecret: process.env.APP_SECRET
-}, async (accessToken, refreshToken, profile, cb) => {
+}, async (accessToken, refreshToken, profile, done) => {
 	const user  = await User.findOne({'facebookId': profile.id});
 
 	if (user) {
-		return cb(null, user);
+		return done(null, user);
 	} else {
 		const newUser = new User(
 			{
@@ -140,7 +140,7 @@ passport.use(new FacebookTokenStrategy({
 			}
 				
 			// if successful, return the new user
-			return cb(null, newUser);
+			return done(null, newUser);
 	});
 		//cb(null, newUser)
 	}

@@ -152,7 +152,7 @@ passport.use(new FacebookTokenStrategy({
 			return cb(null, user); // user found, return that user
 		} else {
 				// if there is no user found with that facebook id, create them
-				let newUser = new User();
+				/*let newUser = new User();
 
 				// set all of the facebook information in our user model
 				newUser.facebookId = profile.id; // set the users facebook id                  
@@ -160,7 +160,17 @@ passport.use(new FacebookTokenStrategy({
 				newUser.name = profile.name; // look at the passport user profile to see how names are returned
 				newUser.email = profile.email // facebook can return multiple emails so we'll take the first
 				newUser.gender = profile.gender
-				newUser.pic = profile.photos[0].value
+				newUser.pic = profile.photos[0].value*/
+
+				const newUser = new User(
+					{
+						facebookId: profile.id,
+						name: profile.name,
+						email: profile.emails.length ? profile.emails[0].value : null,
+						gender: profile.gender,
+						pic: profile.photos[0].value
+					}
+				)
 				// save our user to the database
 				newUser.save(function(err) {
 						if (err) {
@@ -168,7 +178,7 @@ passport.use(new FacebookTokenStrategy({
 						}
 							
 						// if successful, return the new user
-						return cb(err, newUser);
+						return cb(null, newUser);
 				});
 		}
 	});

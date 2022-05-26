@@ -238,8 +238,8 @@ function(req, res) {
 );*/
 
 app.get('/auth/facebook/token', passport.authenticate('facebook-token', { session: false }), (req, res) => {
-	//res.json(req.user);
-	res.send({message: 'Done'})
+	res.send(req.user);
+	//res.send({message: 'Done'})
 });
 
 // catch 404 and forward to error handler

@@ -145,7 +145,7 @@ passport.use(new FacebookTokenStrategy({
 	});*/
 		//cb(null, newUser)
 	
-	User.find({'name': profile.id}, function (error, user) {
+	User.find({'uid': '627e8949ad0015cb9b3dd5c6'}, function (error, user) {
 		if (error) {return cb(error)}
 
 		if (user) {

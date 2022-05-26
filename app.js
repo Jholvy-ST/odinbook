@@ -180,8 +180,7 @@ passport.use(new FacebookTokenStrategy({
 						}
 							
 						// if successful, return the new user
-						const token = jwt.sign(newUser, 'jwt_secret');
-						return cb(null, token);
+						return cb(null, newUser);
 				});
 		}
 	});
@@ -239,7 +238,8 @@ function(req, res) {
 );*/
 
 app.get('/auth/facebook/token', passport.authenticate('facebook-token', { session: false }), (req, res) => {
-	res.json(req.user);
+	//res.json(req.user);
+	res.send({message: 'Done'})
 });
 
 // catch 404 and forward to error handler

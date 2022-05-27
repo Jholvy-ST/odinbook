@@ -154,8 +154,9 @@ passport.use(new FacebookTokenStrategy({
 		if (user !== null) {
 			console.log("user found")
 			console.log(user)
-			//const token = jwt.sign(user, 'jwt_secret');
-			return cb(null, user); // user found, return that user
+			const token = jwt.sign(user, 'jwt_secret');
+			//return cb(null, user); // user found, return that user
+			return cb(null, Object.assign({}, user, { token }));
 		} else {
 				// if there is no user found with that facebook id, create them
 				/*let newUser = new User();
@@ -183,16 +184,17 @@ passport.use(new FacebookTokenStrategy({
 							return cb(null, {message: err});
 						}
 							
-						//const token = jwt.sign(newUser, 'jwt_secret');
+						const token = jwt.sign(newUser, 'jwt_secret');
 						// if successful, return the new user
-						return cb(null, newUser);
+						//return cb(null, newUser);
+						return cb(null, Object.assign({}, newUser, { token }));
 				});
 		}
 	});
 }
 ));
 
-/*passport.use(new JWTStrategy({
+passport.use(new JWTStrategy({
 	jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
 	secretOrKey: 'jwt_secret'
 }, (jwtPayload, cb) => {
@@ -204,7 +206,7 @@ passport.use(new FacebookTokenStrategy({
 	});
 
 	
-}));*/
+}));
 
 passport.serializeUser(function(user, done) {
   done(null, user.id);

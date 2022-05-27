@@ -154,7 +154,7 @@ passport.use(new FacebookTokenStrategy({
 		if (user !== null) {
 			console.log("user found")
 			console.log(user)
-			const token = jwt.sign(user, 'jwt_secret');
+			const token = jwt.sign(user, process.env.TOKEN_KEY);
 			//return cb(null, user); // user found, return that user
 			return cb(null, Object.assign({}, user, { token }));
 		} else {
@@ -184,7 +184,7 @@ passport.use(new FacebookTokenStrategy({
 							return cb(null, {message: err});
 						}
 							
-						const token = jwt.sign(newUser, 'jwt_secret');
+						const token = jwt.sign(newUser, process.env.TOKEN_KEY);
 						// if successful, return the new user
 						//return cb(null, newUser);
 						return cb(null, Object.assign({}, newUser, { token }));
@@ -196,7 +196,7 @@ passport.use(new FacebookTokenStrategy({
 
 passport.use(new JWTStrategy({
 	jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-	secretOrKey: 'jwt_secret'
+	secretOrKey: process.env.TOKEN_KEY
 }, (jwtPayload, cb) => {
 
 	User.findOne({'facebookId':jwtPayload.facebookId}, (err, user) => {
@@ -226,9 +226,9 @@ app.use(helmet());
 
 app.use(logger('dev'));
 app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-//app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 //app.use('/users', usersRouter);

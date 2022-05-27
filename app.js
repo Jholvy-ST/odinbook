@@ -34,7 +34,7 @@ var app = express();
 
 app.use(cors())
 
-app.use(session({ secret: "cats", resave: false, saveUninitialized: true }));
+//app.use(session({ secret: "cats", resave: false, saveUninitialized: true }));
 
 /*passport.use(
   new LocalStrategy((username, password, done) => {
@@ -208,7 +208,7 @@ passport.use(new JWTStrategy({
 	
 }));
 
-passport.serializeUser(function(user, done) {
+/*passport.serializeUser(function(user, done) {
   done(null, user.id);
 });
 
@@ -216,19 +216,20 @@ passport.deserializeUser(function(id, done) {
   User.findById(id, function(err, user) {
     done(err, user);
   });
-});
+});*/
 
-app.use(passport.initialize());
-app.use(passport.session());
+//app.use(passport.initialize());
+//app.use(passport.session());
 
 app.use(compression()); //Compress all routes
 app.use(helmet());
 
 app.use(logger('dev'));
 app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(passport.initialize());
 
 app.use('/', indexRouter);
 //app.use('/users', usersRouter);

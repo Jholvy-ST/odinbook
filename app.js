@@ -242,7 +242,7 @@ app.get('/auth/facebook/token', passport.authenticate('facebook-token', { sessio
 	//res.send({message: 'Done'})
 });
 
-app.post("/log-out", (req, res) => {
+app.get("/log-out", (req, res) => {
   req.logout();
   res.redirect("/");
 });

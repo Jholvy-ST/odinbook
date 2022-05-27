@@ -32,9 +32,9 @@ const homeRouter = require('./routes/home')
 
 var app = express();
 
-//app.use(cors())
+app.use(cors())
 
-//app.use(session({ secret: "cats", resave: false, saveUninitialized: true }));
+app.use(session({ secret: "cats", resave: false, saveUninitialized: true }));
 
 /*passport.use(
   new LocalStrategy((username, password, done) => {
@@ -208,7 +208,7 @@ passport.use(new JWTStrategy({
 	
 }));
 
-/*passport.serializeUser(function(user, done) {
+passport.serializeUser(function(user, done) {
   done(null, user.id);
 });
 
@@ -216,10 +216,10 @@ passport.deserializeUser(function(id, done) {
   User.findById(id, function(err, user) {
     done(err, user);
   });
-});*/
+});
 
 app.use(passport.initialize());
-//app.use(passport.session());
+app.use(passport.session());
 
 app.use(compression()); //Compress all routes
 app.use(helmet());
@@ -265,7 +265,7 @@ app.get('/auth/facebook/token', passport.authenticate('facebook-token', { sessio
 
 app.get("/log-out", (req, res) => {
   req.logout();
-  //res.redirect("/");
+  res.redirect("/");
 });
 
 // catch 404 and forward to error handler

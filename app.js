@@ -244,7 +244,7 @@ app.get('/auth/facebook/token', passport.authenticate('facebook-token', { sessio
 
 app.post("/log-out", (req, res) => {
   req.logout();
-  //res.redirect("/");
+  res.redirect("/");
 });
 
 // catch 404 and forward to error handler

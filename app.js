@@ -197,9 +197,13 @@ passport.use(new JWTStrategy({
 	secretOrKey: 'jwt_secret'
 }, (jwtPayload, cb) => {
 
-	const user = User.findOne({'facebookId':jwtPayload.facebookId});
+	User.findOne({'facebookId':jwtPayload.facebookId}, (err, user) => {
 
-	return cb(null, user);
+		if (err) {return cb(err)}
+		return cb(null, user);
+	});
+
+	
 }));
 
 passport.serializeUser(function(user, done) {

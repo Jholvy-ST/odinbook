@@ -32,7 +32,7 @@ const homeRouter = require('./routes/home')
 
 var app = express();
 
-//app.use(cors())
+app.use(cors())
 
 //app.use(session({ secret: "cats", resave: false, saveUninitialized: true }));
 

@@ -6,15 +6,16 @@ var logger = require('morgan');
 const session = require("express-session");
 const passport = require("passport");
 const facebookStrategy = require('passport-facebook').Strategy;
-const FacebookTokenStrategy = require('passport-facebook-token');
+//const FacebookTokenStrategy = require('passport-facebook-token');
 const LocalStrategy = require("passport-local").Strategy;
 const mongoose = require("mongoose");
 const bcrypt = require('bcryptjs');
-const jwt = require('jsonwebtoken');
+const passport = require('./auth');
+/*const jwt = require('jsonwebtoken');
 const PassportJWT = require('passport-jwt');
 const JWTStrategy = PassportJWT.Strategy;
 const ExtractJwt = PassportJWT.ExtractJwt;
-const User = require('./models/user');
+const User = require('./models/user');*/
 const compression = require('compression');
 const helmet = require('helmet');
 const cors = require('cors');
@@ -118,35 +119,10 @@ function(token, refreshToken, profile, cb) {
 }
 ));*/
 
-passport.use(new FacebookTokenStrategy({
+/*passport.use(new FacebookTokenStrategy({
 	clientID: process.env.APP_ID,
 	clientSecret: process.env.APP_SECRET
 }, (accessToken, refreshToken, profile, cb) => {
-	/*const user  = User.findOne({'facebookId': profile.id});
-
-	if (user) {
-		return cb(null, user);
-	}
-
-		const newUser = new User(
-			{
-				facebookId: profile.id,
-				name: profile.name,
-				email: profile.emails.length ? profile.emails[0].value : null,
-				gender: profile.gender,
-				pic: profile.photos[0].value
-			}
-		)
-
-		newUser.save( (err) => {
-			if (err) {
-				throw err;
-			}
-			
-		// if successful, return the new user
-		return cb(null, newUser);
-	});*/
-		//cb(null, newUser)
 	
 	User.findOne({'facebookId': profile.id}, function (error, user) {
 		if (error) {return cb(error)}
@@ -158,16 +134,6 @@ passport.use(new FacebookTokenStrategy({
 			//return cb(null, user); // user found, return that user
 			return cb(null, Object.assign({}, user, { token }));
 		} else {
-				// if there is no user found with that facebook id, create them
-				/*let newUser = new User();
-
-				// set all of the facebook information in our user model
-				newUser.facebookId = profile.id; // set the users facebook id                  
-				newUser.token = accessToken; // we will save the token that facebook provides to the user                    
-				newUser.name = profile.name; // look at the passport user profile to see how names are returned
-				newUser.email = profile.email // facebook can return multiple emails so we'll take the first
-				newUser.gender = profile.gender
-				newUser.pic = profile.photos[0].value*/
 
 				const newUser = new User(
 					{
@@ -192,9 +158,9 @@ passport.use(new FacebookTokenStrategy({
 		}
 	});
 }
-));
+));*/
 
-passport.use(new JWTStrategy({
+/*passport.use(new JWTStrategy({
 	jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
 	secretOrKey: process.env.TOKEN_KEY
 }, (jwtPayload, cb) => {
@@ -206,7 +172,7 @@ passport.use(new JWTStrategy({
 	});
 
 	
-}));
+}));*/
 
 /*passport.serializeUser(function(user, done) {
   done(null, user.id);
@@ -236,7 +202,7 @@ app.use('/', indexRouter);
 app.use('/home', homeRouter);
 
 //app.get('/auth/facebook', passport.authenticate('facebook', { scope : 'email' }));
-app.get('/auth/facebook', passport.authenticate('facebook'));
+//app.get('/auth/facebook', passport.authenticate('facebook'));
 
 /*app.get('/auth/facebook/callback',
         passport.authenticate('facebook', {
@@ -244,12 +210,12 @@ app.get('/auth/facebook', passport.authenticate('facebook'));
             failureRedirect : 'http://localhost:3000/sign-in'
         }));*/
 
-app.get('/auth/facebook/callback',
+/*app.get('/auth/facebook/callback',
 passport.authenticate('facebook', { failureRedirect: 'http://localhost:3000/sign-in' }),
 function(req, res) {
 	// Successful authentication, redirect home.
 	res.redirect('http://localhost:3000/');
-});
+});*/
 
 /*app.get('/auth/facebook/token',
   passport.authenticate('facebook-token'),

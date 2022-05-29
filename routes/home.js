@@ -4,6 +4,7 @@ const user_controller = require('../controllers/userController');
 const post_controller = require('../controllers/postController');
 const comment_controller = require('../controllers/commentController');
 const user = require('../models/user');
+const passport = require('./auth');
 
 // route middleware to make sure
 const isLoggedIn = (req, res, next) => {
@@ -57,7 +58,7 @@ router.post('/users/:id', isLoggedIn, user_controller.other_user_detail);
 router.post('/create-post', isLoggedIn, post_controller.create_post);
 
 /* GET user and friends posts list. */
-router.get('/user-posts', isLoggedIn, post_controller.post_list);
+router.get('/user-posts', passport.authenticate('jwt', { session: false }), post_controller.post_list);
 
 /* GET posts detail. */
 router.get('/posts/:id', isLoggedIn, post_controller.post_detail);

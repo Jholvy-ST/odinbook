@@ -9,11 +9,28 @@ const user = require('../models/user');
 const isLoggedIn = (req, res, next) => {
  
 	// if user is authenticated in the session, carry on
-	if (req.isAuthenticated())
-			return next();
+	/*if (req.isAuthenticated())
+			return next();*/
 
 	// if they aren't redirect them to the home page
 	//res.redirect('/');
+
+	// Get auth header value
+  const bearerHeader = req.headers['authorization'];
+  // Check if bearer is undefined
+  if(typeof bearerHeader !== 'undefined') {
+    // Split at the space
+    const bearer = bearerHeader.split(' ');
+    // Get token from array
+    const bearerToken = bearer[1];
+    // Set the token
+    req.token = bearerToken;
+    // Next middleware
+    next();
+  } else {
+    // Forbidden
+    res.sendStatus(403);
+  }
 }
 
 //Users requests

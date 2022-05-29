@@ -4,13 +4,13 @@ const user_controller = require('../controllers/userController');
 const post_controller = require('../controllers/postController');
 const comment_controller = require('../controllers/commentController');
 const user = require('../models/user');
-const passport = require('./auth');
+const passport = require('../auth');
 
 // route middleware to make sure
 const isLoggedIn = (req, res, next) => {
  
 	// if user is authenticated in the session, carry on
-	if (req.user)
+	/*if (req.user)
 			return next();
 
 	// if they aren't redirect them to the home page

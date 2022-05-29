@@ -9,14 +9,14 @@ const user = require('../models/user');
 const isLoggedIn = (req, res, next) => {
  
 	// if user is authenticated in the session, carry on
-	/*if (req.isAuthenticated())
-			return next();*/
+	if (req.user)
+			return next();
 
 	// if they aren't redirect them to the home page
 	//res.redirect('/');
 
 	// Get auth header value
-  const bearerHeader = req.headers['authorization'];
+  /*const bearerHeader = req.headers['authorization'];
   // Check if bearer is undefined
   if(typeof bearerHeader !== 'undefined') {
     // Split at the space
@@ -30,7 +30,7 @@ const isLoggedIn = (req, res, next) => {
   } else {
     // Forbidden
     res.sendStatus(403);
-  }
+  }*/
 }
 
 //Users requests

@@ -35,7 +35,7 @@ var app = express();
 
 app.use(cors())
 
-app.use(session({ secret: "cats", resave: false, saveUninitialized: true }));
+app.use(session({ secret: "cats", resave: false, saveUninitialized: true, name: 'random' }));
 
 /*passport.use(
   new LocalStrategy((username, password, done) => {

@@ -19,7 +19,7 @@ passport.use(new FacebookTokenStrategy({
 		if (user !== null) {
 			console.log("user found")
 			console.log(user)
-			const token = jwt.sign({user}, process.env.TOKEN_KEY);
+			const token = jwt.sign({user}, process.env.TOKEN_KEY, { expiresIn: '1h' });
 			//return cb(null, user); // user found, return that user
 			return cb(null, Object.assign({}, user, { token }));
 		} else {
@@ -39,7 +39,7 @@ passport.use(new FacebookTokenStrategy({
 							return cb(null, {message: err});
 						}
 							
-						const token = jwt.sign({newUser}, process.env.TOKEN_KEY);
+						const token = jwt.sign({newUser}, process.env.TOKEN_KEY, { expiresIn: '1h' });
 						// if successful, return the new user
 						//return cb(null, newUser);
 						return cb(null, Object.assign({}, newUser, { token }));

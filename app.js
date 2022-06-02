@@ -174,7 +174,7 @@ function(token, refreshToken, profile, cb) {
 	
 }));*/
 
-passport.serializeUser(function(user, done) {
+/*passport.serializeUser(function(user, done) {
   done(null, user.id);
 });
 
@@ -182,7 +182,7 @@ passport.deserializeUser(function(id, done) {
   User.findById(id, function(err, user) {
     done(err, user);
   });
-});
+});*/
 
 //app.use(passport.initialize());
 //app.use(passport.session());
@@ -196,7 +196,6 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(passport.initialize());
-app.use(passport.session());
 
 app.use('/', indexRouter);
 //app.use('/users', usersRouter);

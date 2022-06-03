@@ -35,6 +35,8 @@ var app = express();
 
 app.use(cors())
 
+app.set('trust proxy', 1)
+
 app.use(session({ secret: "cats", resave: false, saveUninitialized: true, name: 'random', proxy: true }));
 
 /*passport.use(

@@ -48,7 +48,7 @@ router.post('/friend-requests', passport.authenticate('jwt', { session: false })
 router.post('/like-post', passport.authenticate('jwt', { session: false }), user_controller.like_post);
 
 /* POST user details. */
-router.post('/my-profile', passport.authenticate('jwt', { session: false }), user_controller.user_detail);
+router.post('/my-profile', passport.authenticate('jwt', { session: true }), user_controller.user_detail);
 
 /* POST get other user details. */
 router.post('/users/:id', passport.authenticate('jwt', { session: false }), user_controller.other_user_detail);

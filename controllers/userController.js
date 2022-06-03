@@ -69,7 +69,7 @@ exports.user_detail = [
 			}
 		}, (err, results) => {
 			if (err) { return next(err); }
-			res.send( { user: results.user, posts: results.posts, id: req.user.id } )
+			res.send( { user: results.user, posts: results.posts, id: req.user._id } )
 		})
 	}
 ]

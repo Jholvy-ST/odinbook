@@ -53,12 +53,12 @@ passport.use(new JWTStrategy({
 	jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
 	secretOrKey: process.env.TOKEN_KEY
 }, (jwtPayload, cb) => {
-
-	User.findOne({'facebookId':jwtPayload.facebookId}, (err, user) => {
+	return cb(null, jwtPayload.facebookId)
+	/*User.findOne({'facebookId':jwtPayload.facebookId}, (err, user) => {
 
 		if (err) {return cb(err)}
 		return cb(null, user);
-	});
+	});*/
 
 	
 }));

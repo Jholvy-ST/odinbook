@@ -53,12 +53,21 @@ passport.use(new JWTStrategy({
 	jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
 	secretOrKey: process.env.TOKEN_KEY
 }, (jwtPayload, cb) => {
+	try {
+		const user = User.findById(jwtPayload.id);
+		if (!user) {
+				return cb(null, false);
+		}
+		return cb(null, user);
+	} catch (error) {
+			return (error, false);
+	}
 
-	User.findById(jwtPayload.id, (err, user) => {
+	/*User.findById(jwtPayload.id, (err, user) => {
 
 		if (err) {return cb(err)}
 		return cb(null, user);
-	});
+	});*/
 
 	
 }));

@@ -54,7 +54,7 @@ passport.use(new JWTStrategy({
 	secretOrKey: process.env.TOKEN_KEY
 }, (jwtPayload, cb) => {
 	try {
-		const user = User.findById(jwtPayload.id);
+		const user = User.findById(jwtPayload._id);
 		if (!user) {
 				return cb(null, false);
 		}

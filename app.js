@@ -176,7 +176,7 @@ function(token, refreshToken, profile, cb) {
 	
 }));*/
 
-passport.serializeUser(function(user, cb) {
+/*passport.serializeUser(function(user, cb) {
   cb(null, user.id);
 });
 
@@ -184,7 +184,7 @@ passport.deserializeUser(function(id, cb) {
   User.findById(id, function(err, user) {
     cb(err, user);
   });
-});
+});*/
 
 //app.use(passport.initialize());
 //app.use(passport.session());

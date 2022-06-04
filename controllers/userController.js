@@ -60,16 +60,16 @@ exports.user_detail = [
 	(req, res, next) => {
 		async.parallel({
 			user: (callback) => {
-				User.findById(req.user.id)
+				User.findById(req.body.id)
 				.exec(callback)
 			},
 			posts: (callback) => {
-				Post.find({ 'author': req.user.id })
+				Post.find({ 'author': req.body.id })
 				.exec(callback)
 			}
 		}, (err, results) => {
 			if (err) { return next(err); }
-			res.send( { user: 'random result', posts: results.posts, id: req.user.id } )
+			res.send( { user: 'random result', posts: results.posts } )
 		})
 	}
 ]

@@ -58,7 +58,7 @@ router.post('/users/:id', passport.authenticate('jwt', { session: false }), user
 router.post('/create-post', passport.authenticate('jwt', { session: false }), post_controller.create_post);
 
 /* GET user and friends posts list. */
-router.get('/user-posts', passport.authenticate('jwt', { session: false }), post_controller.post_list);
+router.post('/user-posts', passport.authenticate('jwt', { session: false }), post_controller.post_list);
 
 /* GET posts detail. */
 router.get('/posts/:id', passport.authenticate('jwt', { session: false }), post_controller.post_detail);

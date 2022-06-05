@@ -21,7 +21,6 @@ passport.use(new FacebookTokenStrategy({
 			console.log(user)
 			const token = jwt.sign({user}, process.env.TOKEN_KEY, { expiresIn: '1h' });
 			//return cb(null, user); // user found, return that user
-			user.pic = profile.profile_pic
 			return cb(null, Object.assign({}, user, { token }));
 		} else {
 

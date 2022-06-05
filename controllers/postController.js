@@ -61,11 +61,11 @@ exports.post_list = [
 	(req, res, next) => {
 		async.parallel({
 			own_posts: (callback) => {
-				Post.find({ 'author': req.user.id })
+				Post.find({ 'author': req.body.id })
 				.exec(callback)
 			},
 			friends: (callback) => {
-				User.find({ 'friends': req.user.id })
+				User.find({ 'friends': req.body.id })
 				.exec(callback)
 			}
 		}, (err, results) => {

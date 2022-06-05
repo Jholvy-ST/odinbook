@@ -17,7 +17,7 @@ exports.create_post = [
 		const post = new Post(
 			{
 				content: req.body.content,
-				author: req.user.id,
+				author: req.body.id,
 			}
 		)
 

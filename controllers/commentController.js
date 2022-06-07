@@ -11,8 +11,8 @@ exports.comment_post = [
 			const comment = new Comment(
 				{
 					content: req.body.content,
-					author: req.body.user_id,
-					post: req.body.id,
+					author: req.body.author,
+					post: req.body.post,
 				}
 			)
 

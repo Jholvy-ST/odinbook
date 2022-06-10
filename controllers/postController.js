@@ -47,6 +47,7 @@ exports.post_detail = [
 			},
 			comments: (callback) => {
 				Comment.find({ 'post': req.params.id })
+				.populate("author")
 				.exec(callback)
 			}
 		}, (err, results) => {

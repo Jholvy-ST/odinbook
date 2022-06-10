@@ -4,7 +4,7 @@ const { body,validationResult } = require('express-validator');
 
 exports.comment_post = [
 	(req, res, next) => {
-		Post.findById(req.body.id)
+		Post.findById(req.body.post)
 		.exec( (err, found_post) => {
 			if (err) { return next(err); }
 

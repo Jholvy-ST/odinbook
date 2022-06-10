@@ -63,6 +63,7 @@ exports.post_list = [
 		async.parallel({
 			own_posts: (callback) => {
 				Post.find({ 'author': req.body.id })
+				.populate('author')
 				.exec(callback)
 			},
 			friends: (callback) => {

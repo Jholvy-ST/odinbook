@@ -257,7 +257,7 @@ exports.comment_post = [
 
 			Post.findByIdAndUpdate(req.body.id, post, {}, function (err) {
 				if (err) { return next(err); }
-				res.send({message: 'Done'})
+				res.send({post: found_post})
 			});
 
 		})

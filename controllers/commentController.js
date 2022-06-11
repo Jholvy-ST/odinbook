@@ -19,7 +19,7 @@ exports.comment_post = [
 			comment.save( (err) => {
 				if (err) { return next(err); }
 
-				res.send({post: found_post});
+				res.send({comment: comment});
 			})
 		})
 	}

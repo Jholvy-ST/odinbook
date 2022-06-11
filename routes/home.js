@@ -63,6 +63,9 @@ router.post('/user-posts', passport.authenticate('jwt', { session: false }), pos
 /* GET posts detail. */
 router.get('/posts/:id', passport.authenticate('jwt', { session: false }), post_controller.post_detail);
 
+/*POST comment a post. */
+router.post('/comment', passport.authenticate('jwt', { session: false }), user_controller.comment_post);
+
 //Comments requests
 /*POST comment post. */
 router.post('/comment-post', passport.authenticate('jwt', { session: false }), comment_controller.comment_post);

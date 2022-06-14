@@ -229,7 +229,7 @@ exports.like_post = [
 
 			Post.findByIdAndUpdate(req.body.post_id, post, {}, function (err) {
 				if (err) { return next(err); }
-				res.send({message: 'Done'})
+				res.send({likes: post.likes})
 			});
 
 		})

@@ -1,5 +1,6 @@
 const Comment = require('../models/comment');
 const Post = require('../models/post');
+const User = require('../models/user')
 const { body,validationResult } = require('express-validator');
 
 exports.comment_post = [
@@ -19,7 +20,11 @@ exports.comment_post = [
 			comment.save( (err) => {
 				if (err) { return next(err); }
 
-				res.send({comment: comment});
+				User.findById(req.body.author)
+				.exec((err, author)=> {
+					if (err) { return next(err); }
+					res.send({comment: comment, author: author});
+				})
 			})
 		})
 	}

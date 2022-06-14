@@ -194,7 +194,7 @@ exports.accept_request = [
 
 exports.like_post = [
 	(req, res, next) => {
-		Post.findById(req.body.id)
+		Post.findById(req.body.post_id)
 		.exec( (err, found_post) => {
 			if (err) { return next(err); }
 
@@ -211,23 +211,23 @@ exports.like_post = [
 			if (post.likes.length > 0) {
 				let found = false;
 				for (let i = 0; i < post.likes.length; i++) {
-					if (post.likes[i] == req.user.id) {
+					if (post.likes[i] == req.body.user_id) {
 						found = true;
 					}
 				}
 
 				if (!found) {
-					post.likes.push(req.user.id)
+					post.likes.push(req.body.user_id)
 				} else {
-					const index = post.likes.indexOf(req.user.id);
+					const index = post.likes.indexOf(req.body.user_id);
 
 					post.likes.splice(index, 1);
 				}
 			} else {
-				post.likes.push(req.user.id) 
+				post.likes.push(req.body.user_id) 
 			}
 
-			Post.findByIdAndUpdate(req.body.id, post, {}, function (err) {
+			Post.findByIdAndUpdate(req.body.post_id, post, {}, function (err) {
 				if (err) { return next(err); }
 				res.send({message: 'Done'})
 			});

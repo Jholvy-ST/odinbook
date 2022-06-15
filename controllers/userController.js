@@ -107,16 +107,16 @@ exports.send_friend_request = [
 			if (user.requests.length > 0) {
 				let found = false;
 				for (let i = 0; i < user.requests.length; i++) {
-					if (user.requests[i] == req.user.id) {
+					if (user.requests[i] == req.body.id) {
 						found = true;
 					}
 				}
 
 				if (!found) {
-					user.requests.push(req.user.id)
+					user.requests.push(req.body.id)
 				}
 			} else {
-				user.requests.push(req.user.id) 
+				user.requests.push(req.body.id) 
 			}
 			
 			
@@ -124,7 +124,7 @@ exports.send_friend_request = [
 			User.findByIdAndUpdate(req.body.req_id, user, {}, function (err) {
 				if (err) { return next(err); }
 				// Successful - redirect to book detail page.
-				res.redirect('/users');
+				res.send({message: 'Done'});
 			});
 		})
 	}

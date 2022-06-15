@@ -36,7 +36,7 @@ const isLoggedIn = (req, res, next) => {
 
 //Users requests
 /* GET request users list. */
-router.get('/users', passport.authenticate('jwt', { session: false }), user_controller.users_list);
+router.post('/users', passport.authenticate('jwt', { session: false }), user_controller.users_list);
 
 /* POST send friend request. */
 router.post('/users', passport.authenticate('jwt', { session: false }), user_controller.send_friend_request);

@@ -42,7 +42,7 @@ exports.users_list = [
 		User.find()
 		.exec( (err, user_list) => {
 			if (err) { return next(err); }
-			//Successful, so render
+			//Successful
 			res.send({ user_list: user_list });
 		})
 	}

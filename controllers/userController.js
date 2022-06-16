@@ -65,6 +65,7 @@ exports.user_detail = [
 			},
 			posts: (callback) => {
 				Post.find({ 'author': req.body.id })
+				.populate('author')
 				.exec(callback)
 			}
 		}, (err, results) => {

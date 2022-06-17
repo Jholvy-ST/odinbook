@@ -61,6 +61,7 @@ exports.user_detail = [
 		async.parallel({
 			user: (callback) => {
 				User.findById(req.body.id)
+				.populate('friends')
 				.exec(callback)
 			},
 			posts: (callback) => {

@@ -134,7 +134,7 @@ exports.send_friend_request = [
 
 exports.accept_request = [
 	(req, res, next) => {
-		User.findById(req.user.id)
+		User.findById(req.body.id)
 		.exec((err, found_user) => {
 			if (err) { return next(err); }
 
@@ -157,7 +157,7 @@ exports.accept_request = [
 
 			user.requests.splice(index, 1);
 
-			User.findByIdAndUpdate(req.user.id, user, {}, function (err) {
+			User.findByIdAndUpdate(req.body.id, user, {}, function (err) {
 				if (err) { return next(err); }
 				// Successful - redirect to book detail page.
 				next()
@@ -183,11 +183,11 @@ exports.accept_request = [
 				}
 			)
 
-			user.friends.push(req.user.id)
+			user.friends.push(req.body.id)
 
 			User.findByIdAndUpdate(req.body.req_id, user, {}, function (err) {
 				if (err) { return next(err); }
-				// Successful - redirect to book detail page.
+				// Successful
 				res.send({ message: 'done'})
 			});
 		})

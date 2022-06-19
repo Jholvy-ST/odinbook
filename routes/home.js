@@ -44,6 +44,9 @@ router.post('/send-friend-request', passport.authenticate('jwt', { session: fals
 /* POST accept friend request. */
 router.post('/friend-requests', passport.authenticate('jwt', { session: false }), user_controller.accept_request);
 
+/* POST delete friend request. */
+router.post('/delete-request', passport.authenticate('jwt', { session: false }), user_controller.delete_request);
+
 /* POST like post. */
 router.post('/like-post', passport.authenticate('jwt', { session: false }), user_controller.like_post);
 

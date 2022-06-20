@@ -151,7 +151,22 @@ exports.accept_request = [
 				}
 			)
 
-			user.friends.push(req.body.req_id)
+			if (user.friends.length > 0) {
+				let found = false;
+				for (let i = 0; i < user.friends.length; i++) {
+					if (user.friends[i] == req.body.id) {
+						found = true;
+					}
+				}
+
+				if (!found) {
+					user.friends.push(req.body.req_id)
+				}
+			} else {
+				user.friends.push(req.body.req_id)
+			}
+
+			//user.friends.push(req.body.req_id)
 
 			const index = user.requests.indexOf(req.body.req_id);
 
@@ -183,7 +198,22 @@ exports.accept_request = [
 				}
 			)
 
-			user.friends.push(req.body.id)
+			if (user.friends.length > 0) {
+				let found = false;
+				for (let i = 0; i < user.friends.length; i++) {
+					if (user.friends[i] == req.body.id) {
+						found = true;
+					}
+				}
+
+				if (!found) {
+					user.friends.push(req.body.id)
+				}
+			} else {
+				user.friends.push(req.body.id) 
+			}
+
+			//user.friends.push(req.body.id)
 
 			User.findByIdAndUpdate(req.body.req_id, user, {}, function (err) {
 				if (err) { return next(err); }

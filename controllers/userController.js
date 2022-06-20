@@ -154,7 +154,7 @@ exports.accept_request = [
 			if (user.friends.length > 0) {
 				let found = false;
 				for (let i = 0; i < user.friends.length; i++) {
-					if (user.friends[i] == req.body.id) {
+					if (user.friends[i] == req.body.req_id) {
 						found = true;
 					}
 				}

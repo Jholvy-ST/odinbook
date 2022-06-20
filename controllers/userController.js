@@ -106,10 +106,16 @@ exports.send_friend_request = [
 				}
 			)
 
-			if (user.requests.length > 0) {
+			if (user.requests.length > 0 || user.friends.length > 0) {
 				let found = false;
 				for (let i = 0; i < user.requests.length; i++) {
 					if (user.requests[i] == req.body.id) {
+						found = true;
+					}
+				}
+
+				for (let i = 0; i < user.friends.length; i++) {
+					if (user.friends[i] == req.body.id) {
 						found = true;
 					}
 				}

@@ -31,7 +31,7 @@ exports.create_post = [
 			post.save(function (err) {
 				if (err) { return next(err); }
 				// Successful - redirect to new author record.
-				res.redirect('/');
+				res.send({post: post});
 			});
 		}
 		

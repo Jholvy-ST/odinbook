@@ -2,11 +2,39 @@ const passport = require('passport');
 const jwt = require('jsonwebtoken');
 const FacebookTokenStrategy = require('passport-facebook-token');
 const PassportJWT = require('passport-jwt');
+const LocalStrategy = require("passport-local").Strategy;
 const JWTStrategy = PassportJWT.Strategy;
 const ExtractJwt = PassportJWT.ExtractJwt;
 const User = require('./models/user');
 
 require('dotenv').config();
+
+passport.use(
+  new LocalStrategy((name, id, done) => {
+    User.findOne({ _id: id }, (err, user) => {
+      if (err) { 
+        return done(err);
+      }
+      if (!user) {
+        return done(null, false, { message: "Incorrect user" });
+      }
+      if (user.id !== id) {
+        return done(null, false, { message: "Incorrect id" });
+      }
+			/*bcrypt.compare(password, user.password, (err, res) => {
+				if (res) {
+					// passwords match! log user in
+					return done(null, user)
+				} else {
+					// passwords do not match!
+					return done(null, false, { message: "Incorrect password" })
+				}
+			})*/
+			const token = jwt.sign({user}, process.env.TOKEN_KEY, { expiresIn: '1h' });
+      return done(null, Object.assign({}, user, { token }));
+    });
+  })
+);
 
 passport.use(new FacebookTokenStrategy({
 	clientID: process.env.APP_ID,

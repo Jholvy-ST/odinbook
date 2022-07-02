@@ -10,8 +10,11 @@ const User = require('./models/user');
 require('dotenv').config();
 
 passport.use(
-  new LocalStrategy((name, id, done) => {
-    User.findOne({ _id: id }, (err, user) => {
+  new LocalStrategy({
+    usernameField: 'name',
+    passwordField: 'id',
+  }, (username, password, done) => {
+    User.findOne({ _id: password }, (err, user) => {
       if (err) { 
         return done(err);
       }

@@ -13,16 +13,16 @@ passport.use(
   new LocalStrategy({
     usernameField: 'name',
     passwordField: 'id',
-  }, (username, password, done) => {
+  }, (username, password, cb) => {
     User.findOne({ _id: password }, (err, user) => {
       if (err) { 
-        return done(err);
+        return cb(err);
       }
       if (!user) {
-        return done(null, false, { message: "Incorrect user" });
+        return cb(null, false, { message: "Incorrect user" });
       }
       if (user.id !== id) {
-        return done(null, false, { message: "Incorrect id" });
+        return cb(null, false, { message: "Incorrect id" });
       }
 			/*bcrypt.compare(password, user.password, (err, res) => {
 				if (res) {
@@ -34,7 +34,7 @@ passport.use(
 				}
 			})*/
 			const token = jwt.sign({user}, process.env.TOKEN_KEY, { expiresIn: '1h' });
-      return done(null, Object.assign({}, user, { token }));
+      return cb(null, Object.assign({}, user, { token }));
     });
   })
 );

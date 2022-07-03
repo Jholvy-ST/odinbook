@@ -2,7 +2,7 @@ const passport = require('passport');
 const jwt = require('jsonwebtoken');
 const FacebookTokenStrategy = require('passport-facebook-token');
 const PassportJWT = require('passport-jwt');
-const LocalStrategy = require("passport-local");
+const LocalStrategy = require("passport-local").Strategy;
 const JWTStrategy = PassportJWT.Strategy;
 const ExtractJwt = PassportJWT.ExtractJwt;
 const User = require('./models/user');
@@ -13,8 +13,9 @@ passport.use(
   new LocalStrategy({
     usernameField: 'name',
     passwordField: 'id',
-  }, (username, password, cb) => {
-    User.findOne({ _id: password }, (err, user) => {
+		passReqToCallback: true
+  }, ( req, username, password, cb) => {
+    User.findOne({ _id: req.body.id }, (err, user) => {
       if (err) { 
         return cb(err);
       }

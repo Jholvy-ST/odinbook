@@ -17,7 +17,7 @@ passport.use(
   }, ( req, username, password, cb) => {
     User.findOne({ _id: req.body.id }, (err, user) => {
       if (err) { 
-        return cb(err);
+        return cb({err: err, message: 'Error'});
       }
       if (!user) {
         return cb(null, false, { message: "Incorrect user" });

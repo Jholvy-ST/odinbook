@@ -19,7 +19,7 @@ passport.use(
       if (err) { 
         return cb({err: err, message: 'Error'});
       }
-      if (user !== null) {
+      if (user == null) {
         return cb(null, false, { message: "Incorrect user" });
       }
       if (user._id !== req.body._id) {

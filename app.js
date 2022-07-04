@@ -232,9 +232,9 @@ app.get('/auth/facebook/token', passport.authenticate('facebook-token', { sessio
 });
 
 app.post('/auth/local', passport.authenticate('local', { session: false }), (req, res) => {
-	if (req.user) {
+	/*if (req.user) {
 		return res.json(req.user);
-	}
+	}*/
 	
 	
 	res.send({message: 'Done'})

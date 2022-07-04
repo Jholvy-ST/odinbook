@@ -15,14 +15,14 @@ passport.use(
 		passwordField: '_id',
 		passReqToCallback: true
   }, ( req, username, password, cb) => {
-    User.findOne({ 'name': req.body.name }, (err, user) => {
+    User.findOne({ 'name': username }, (err, user) => {
       if (err) { 
         return cb({err: err, message: 'Error'});
       }
       if (user == null) {
         return cb(null, false, { message: "Incorrect user" });
       }
-      if (user._id !== req.body._id) {
+      if (user._id !== password) {
         return cb(null, false, { message: "Incorrect id" });
       }
 			/*bcrypt.compare(password, user.password, (err, res) => {

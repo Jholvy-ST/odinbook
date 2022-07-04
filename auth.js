@@ -20,7 +20,7 @@ passport.use(
       if (user !== null) {
         return cb(null, false, { message: "Incorrect user" });
       }
-      if (user._id !== req.body.username) {
+      if (user._id !== req.body.id) {
         return cb(null, false, { message: "Incorrect id" });
       }
 			/*bcrypt.compare(password, user.password, (err, res) => {

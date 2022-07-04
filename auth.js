@@ -13,7 +13,7 @@ passport.use(
   new LocalStrategy({
 		passReqToCallback: true
   }, ( req, username, password, cb) => {
-    User.findOne({ 'name': username }, (err, user) => {
+    User.findOne({ 'name': req.body.username }, (err, user) => {
       if (err) { 
         return cb({err: err, message: 'Error'});
       }

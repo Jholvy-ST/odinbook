@@ -17,10 +17,10 @@ passport.use(
       if (err) { 
         return cb({err: err, message: 'Error'});
       }
-      if (!user) {
+      if (user !== null) {
         return cb(null, false, { message: "Incorrect user" });
       }
-      if (user.id !== id) {
+      if (user._id !== password) {
         return cb(null, false, { message: "Incorrect id" });
       }
 			/*bcrypt.compare(password, user.password, (err, res) => {

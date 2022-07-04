@@ -11,6 +11,8 @@ require('dotenv').config();
 
 passport.use(
   new LocalStrategy({
+		usernameField: 'name',
+		passwordField: '_id',
 		passReqToCallback: true
   }, ( req, username, password, cb) => {
     User.findOne({ 'name': req.body.username }, (err, user) => {

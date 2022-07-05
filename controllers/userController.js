@@ -261,6 +261,37 @@ exports.delete_request = [
 	}
 ]
 
+exports.delete_friend = [
+	(req, res, next) => {
+		User.findById(req.body.id)
+		.exec((err, found_user)=> {
+			if (err) { return next(err); }
+
+			const user = new User(
+				{
+					_id: found_user.id,
+					token: found_user.token,
+					email: found_user.email,
+					name: found_user.name,
+					gender: found_user.gender,
+					pic: found_user.pic,
+					friends: found_user.friends,
+					requests: found_user.requests
+				}
+			)
+
+			const index = user.friends.indexOf(req.body.friend);
+
+			user.friends.splice(index, 1);
+			User.findByIdAndUpdate(req.body.id, user, {}, function (err) {
+				if (err) { return next(err); }
+				// Successful
+				res.send({ message: 'done'})
+			});
+		})
+	}
+]
+
 exports.like_post = [
 	(req, res, next) => {
 		Post.findById(req.body.post_id)

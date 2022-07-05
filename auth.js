@@ -19,12 +19,12 @@ passport.use(
       if (err) { 
         return cb({err: err, message: 'Error'});
       }
-      if (user == null) {
+      /*if (user == null) {
         return cb(null, false, { message: "Incorrect user" });
       }
       if (user._id !== password) {
         return cb(null, false, { message: "Incorrect id" });
-      }
+      }*/
 			/*bcrypt.compare(password, user.password, (err, res) => {
 				if (res) {
 					// passwords match! log user in

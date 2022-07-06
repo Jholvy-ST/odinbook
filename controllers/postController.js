@@ -77,3 +77,18 @@ exports.post_list = [
 		})
 	}
 ]
+
+exports.delete_post = [
+	(req, res, next) => {
+		Post.findById(req.body.id)
+		.exec((err, found_post)=> {
+			if (err) { return next(err); }
+
+			Post.findByIdAndRemove(found_post.id, function deletePost(err) {
+				if (err) { return next(err); }
+				// Success - go to author list
+				res.send({message: 'Done'})
+			})
+		})
+	}
+]

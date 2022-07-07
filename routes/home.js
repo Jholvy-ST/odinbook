@@ -63,6 +63,9 @@ router.post('/users/:id', passport.authenticate('jwt', { session: false }), user
 /*POST create post. */
 router.post('/create-post', passport.authenticate('jwt', { session: false }), post_controller.create_post);
 
+/*POST delete post. */
+router.post('/delete-post', passport.authenticate('jwt', { session: false }), post_controller.delete_post);
+
 /* GET user and friends posts list. */
 router.post('/user-posts', passport.authenticate('jwt', { session: false }), post_controller.post_list);
 

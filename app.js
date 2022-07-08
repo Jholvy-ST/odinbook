@@ -33,7 +33,11 @@ const homeRouter = require('./routes/home')
 
 const app = express();
 
-app.use(cors())
+const corsOptions = {
+  allowedHeaders: ['Content-Type', 'Authorization']
+};
+
+app.use(cors(corsOptions));
 
 app.use(session({ secret: process.env.TOKEN_KEY, resave: false, saveUninitialized: true }));
 

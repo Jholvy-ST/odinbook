@@ -81,7 +81,7 @@ router.post('/comment', passport.authenticate('jwt', { session: false }), user_c
 router.post('/comment-post', passport.authenticate('jwt', { session: false }), comment_controller.comment_post);
 
 //Upload images
-router.post('/cloudinary-upload', fileUploader.single('file'), (req, res, next) => {
+router.post('/cloudinary-upload', passport.authenticate('jwt', { session: false }), fileUploader.single('file'), (req, res, next) => {
   if (!req.file) {
     next(new Error('No file uploaded!'));
     return;

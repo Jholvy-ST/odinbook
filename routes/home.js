@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+const fileUploader = require('../cloudinary.config');
 const user_controller = require('../controllers/userController');
 const post_controller = require('../controllers/postController');
 const comment_controller = require('../controllers/commentController');
@@ -78,5 +79,15 @@ router.post('/comment', passport.authenticate('jwt', { session: false }), user_c
 //Comments requests
 /*POST comment post. */
 router.post('/comment-post', passport.authenticate('jwt', { session: false }), comment_controller.comment_post);
+
+//Upload images
+router.post('/cloudinary-upload', fileUploader.single('file'), (req, res, next) => {
+  if (!req.file) {
+    next(new Error('No file uploaded!'));
+    return;
+  }
+ 
+  res.json({ secure_url: req.file.path });
+});
 
 module.exports = router;

@@ -21,6 +21,10 @@ exports.create_post = [
 			}
 		)
 
+		if (req.body.image) {
+			post.image = req.body.image
+		}
+		
 		post['likes'] = [];
 		post['date'] = Date.now();
 

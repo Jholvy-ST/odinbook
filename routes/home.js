@@ -87,7 +87,7 @@ router.post('/cloudinary-upload', passport.authenticate('jwt', { session: false 
     return;
   }
  
-  res.json({ secure_url: req.file.path });
+  res.send({ secure_url: req.file.path });
 });
 
 module.exports = router;

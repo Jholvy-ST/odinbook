@@ -84,7 +84,7 @@ router.post('/comment-post', passport.authenticate('jwt', { session: false }), c
 router.post('/cloudinary-upload', passport.authenticate('jwt', { session: false }), fileUploader.single('file'), (req, res, next) => {
   if (!req.file) {
     next(new Error('No file uploaded!'));
-    return;
+    res.send({message: 'Error'})
   }
  
   res.send({ secure_url: req.file.path });

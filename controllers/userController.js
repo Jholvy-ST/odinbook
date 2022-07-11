@@ -384,6 +384,12 @@ exports.comment_post = [
 				}
 			)
 
+			if (req.body.image) {
+				post.image = req.body.image
+			} else if (found_post.image) {
+				post.image = found_post.image
+			}
+
 			Post.findByIdAndUpdate(req.body.id, post, {}, function (err) {
 				if (err) { return next(err); }
 				res.send({post: post})

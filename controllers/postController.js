@@ -91,7 +91,7 @@ exports.delete_post = [
 			Post.findByIdAndRemove(found_post.id, function deletePost(err) {
 				if (err) { return next(err); }
 				// Success - go to author list
-				res.send({message: 'Done'})
+				res.send({deleted: req.body.id})
 			})
 		})
 	}

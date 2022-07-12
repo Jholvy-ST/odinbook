@@ -37,6 +37,33 @@ exports.sign_user_post =  [
 	}
 ];
 
+exports.change_profile_pic = [
+	(req, res, next) => {
+		User.findById(req.body.id)
+		.exec((err, found_user)=> {
+			if (err) { return next(err); }
+
+			const user = new User(
+				{
+					_id: found_user.id,
+					token: found_user.token,
+					email: found_user.email,
+					name: found_user.name,
+					gender: found_user.gender,
+					pic: req.body.pic,
+					friends: found_user.friends,
+					requests: found_user.requests
+				}
+			)
+
+			User.findByIdAndUpdate(req.body.id, user, {}, function (err) {
+				if (err) { return next(err); }
+				res.send({user: user})
+			});
+		})
+	}
+]
+
 exports.users_list = [
 	(req, res, next) => {
 		User.find()

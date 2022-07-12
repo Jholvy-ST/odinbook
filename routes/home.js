@@ -39,6 +39,9 @@ const isLoggedIn = (req, res, next) => {
 /* GET request users list. */
 router.post('/users', passport.authenticate('jwt', { session: false }), user_controller.users_list);
 
+/* POST change profile picture. */
+router.post('/change-profile-picture', passport.authenticate('jwt', { session: false }), user_controller.change_profile_pic);
+
 /* POST send friend request. */
 router.post('/send-friend-request', passport.authenticate('jwt', { session: false }), user_controller.send_friend_request);
 

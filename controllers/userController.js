@@ -401,7 +401,7 @@ exports.edit_post = [
 		.exec( (err, found_post) => {
 			if (err) { return next(err); }
 
-			let post = new Post(
+			const post = new Post(
 				{
 					content: req.body.content,
 					author: found_post.author,

@@ -412,8 +412,9 @@ exports.edit_post = [
 			)
 
 			if (req.body.image) {
-				post.content = 'There was an image'
 				post.image = req.body.image
+			} else if (found_post.image) {
+				post.image = undefined
 			}
 
 			Post.findByIdAndUpdate(req.body.id, post, {}, function (err) {

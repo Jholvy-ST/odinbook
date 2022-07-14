@@ -412,6 +412,7 @@ exports.edit_post = [
 			)
 
 			if (req.body.image) {
+				post.content = 'There was an image'
 				post.image = req.body.image
 			}
 

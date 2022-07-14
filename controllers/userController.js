@@ -392,7 +392,7 @@ exports.like_post = [
 	}
 ]
 
-exports.comment_post = [
+exports.edit_post = [
 	// Validate and sanitize fields.
   body('content', 'Content required').trim().isLength({ min: 1 }).escape(),
 

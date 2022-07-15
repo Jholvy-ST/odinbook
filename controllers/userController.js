@@ -415,7 +415,7 @@ exports.edit_post = [
 				post.image = req.body.image
 			}
 
-			Post.findByIdAndUpdate(req.body.id, {$set: post}, {}, function (err) {
+			Post.findByIdAndUpdate(req.body.id, {$set: post}, { new: true, overwrite: true }, function (err) {
 				if (err) { return next(err); }
 				res.send({post: post})
 			});

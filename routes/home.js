@@ -77,7 +77,7 @@ router.post('/user-posts', passport.authenticate('jwt', { session: false }), pos
 router.get('/posts/:id', passport.authenticate('jwt', { session: false }), post_controller.post_detail);
 
 /*POST edit a post. */
-router.post('/edit-post', passport.authenticate('jwt', { session: false }), user_controller.edit_post);
+router.post('/edit-post', passport.authenticate('jwt', { session: false }), post_controller.edit_post);
 
 //Comments requests
 /*POST comment post. */

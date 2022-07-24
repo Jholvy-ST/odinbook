@@ -29,12 +29,12 @@ exports.create_post = [
 		post['date'] = Date.now();
 
 		if (!errors.isEmpty()) {
-			// There are errors. Render form again with sanitized values/errors messages.
-			res.json({ post: post, errors: errors.array() });
+			// There are errors.
+			res.json({ errors: errors.array() });
 		} else {
 			post.save(function (err) {
 				if (err) { return next(err); }
-				// Successful - redirect to new author record.
+				// Successful - sends the data of the new post.
 				res.send({post: post});
 			});
 		}
@@ -79,6 +79,47 @@ exports.post_list = [
 
 			res.send( { own_posts: results.own_posts, friends: results.friends } )
 		})
+	}
+]
+
+exports.edit_post = [
+	// Validate and sanitize fields.
+  body('content', 'Content required').trim().isLength({ min: 1 }).escape(),
+
+	(req, res, next) => {
+		// Extract the validation errors from a request.
+		const errors = validationResult(req);
+
+		if (!errors.isEmpty()) {
+			// There are errors.
+			res.json({ errors: errors.array() });
+		} else {
+			Post.findById(req.body.id)
+			.exec( (err, found_post) => {
+				if (err) { return next(err); }
+	
+				const post = new Post(
+					{
+						content: req.body.content,
+						author: found_post.author,
+						date: found_post.date,
+						likes: found_post.likes,
+						_id: found_post.id
+					}
+				)
+	
+				if (req.body.image) {
+					post.image = req.body.image
+				}
+	
+				Post.findByIdAndUpdate(req.body.id, post, { new: true, overwrite: true }, function (err) {
+					if (err) { return next(err); }
+					res.send({post: post})
+				});
+	
+			})
+		}
+		
 	}
 ]
 

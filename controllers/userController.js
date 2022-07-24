@@ -4,7 +4,7 @@ const async = require('async');
 const { body,validationResult } = require('express-validator');
 const bcrypt = require('bcryptjs');
 
-exports.sign_user_post =  [
+/*exports.sign_user_post =  [
 	// Validate and sanitize fields.
   body('first_name', 'First name name required').trim().isLength({ min: 1 }).escape(),
 	body('last_name', 'Last name required').trim().isLength({ min: 1 }).escape(),
@@ -35,7 +35,7 @@ exports.sign_user_post =  [
 			});
 		});
 	}
-];
+];*/
 
 exports.change_profile_pic = [
 	(req, res, next) => {
@@ -386,38 +386,6 @@ exports.like_post = [
 			Post.findByIdAndUpdate(req.body.post_id, post, {}, function (err) {
 				if (err) { return next(err); }
 				res.send({likes: post.likes})
-			});
-
-		})
-	}
-]
-
-exports.edit_post = [
-	// Validate and sanitize fields.
-  body('content', 'Content required').trim().isLength({ min: 1 }).escape(),
-
-	(req, res, next) => {
-		Post.findById(req.body.id)
-		.exec( (err, found_post) => {
-			if (err) { return next(err); }
-
-			const post = new Post(
-				{
-					content: req.body.content,
-					author: found_post.author,
-					date: found_post.date,
-					likes: found_post.likes,
-					_id: found_post.id
-				}
-			)
-
-			if (req.body.image) {
-				post.image = req.body.image
-			}
-
-			Post.findByIdAndUpdate(req.body.id, post, { new: true, overwrite: true }, function (err) {
-				if (err) { return next(err); }
-				res.send({post: post})
 			});
 
 		})

@@ -9,13 +9,7 @@ const facebookStrategy = require('passport-facebook').Strategy;
 //const FacebookTokenStrategy = require('passport-facebook-token');
 const LocalStrategy = require("passport-local").Strategy;
 const mongoose = require("mongoose");
-const bcrypt = require('bcryptjs');
 const passport = require('./auth');
-/*const jwt = require('jsonwebtoken');
-const PassportJWT = require('passport-jwt');
-const JWTStrategy = PassportJWT.Strategy;
-const ExtractJwt = PassportJWT.ExtractJwt;*/
-const User = require('./models/user');
 const compression = require('compression');
 const helmet = require('helmet');
 const cors = require('cors');
@@ -28,7 +22,6 @@ const db = mongoose.connection;
 db.on("error", console.error.bind(console, "mongo connection error"));
 
 const indexRouter = require('./routes/index');
-const usersRouter = require('./routes/users');
 const homeRouter = require('./routes/home')
 
 const app = express();
@@ -56,7 +49,6 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.use('/', indexRouter);
-//app.use('/users', usersRouter);
 app.use('/home', homeRouter);
 
 app.get('/auth/facebook/token', passport.authenticate('facebook-token', { session: false }), (req, res) => {
@@ -90,7 +82,6 @@ app.use(function(err, req, res, next) {
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
 
-  // render the error page
   res.status(err.status || 500);
 	res.send({error: err});
 });

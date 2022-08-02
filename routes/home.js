@@ -83,6 +83,12 @@ router.post('/edit-post', passport.authenticate('jwt', { session: false }), post
 /*POST comment post. */
 router.post('/comment-post', passport.authenticate('jwt', { session: false }), comment_controller.comment_post);
 
+/*POST comment post. */
+router.post('/edit-comment', passport.authenticate('jwt', { session: false }), comment_controller.edit_comment);
+
+/*POST comment post. */
+router.post('/delete-comment', passport.authenticate('jwt', { session: false }), comment_controller.delete_comment);
+
 //Upload images
 router.post('/cloudinary-upload', passport.authenticate('jwt', { session: false }), fileUploader.single('file'), (req, res, next) => {
   if (!req.file) {

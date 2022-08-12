@@ -65,7 +65,7 @@ passport.use(new FacebookTokenStrategy({
 						pic: profile.photos[0].value
 					}
 				)
-				// save our user to the database
+				// Save user to the database
 				newUser.save(function(err) {
 						if (err) {
 							return cb(null, {message: err});
@@ -88,7 +88,7 @@ passport.use(new JWTStrategy({
 	try {
 		const user = User.findById(jwtPayload._id);
 		if (!user) {
-				return cb(null, false);
+			return cb(null, false);
 		}
 		return cb(null, user);
 	} catch (error) {

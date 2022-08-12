@@ -2,7 +2,7 @@ const Post = require('../models/post');
 const Comment = require('../models/comment');
 const User = require('../models/user');
 const async = require('async');
-const { body,validationResult } = require('express-validator');
+const { body, validationResult } = require('express-validator');
 
 exports.create_post = [
 	// Validate and sanitize fields.

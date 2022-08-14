@@ -34,9 +34,6 @@ app.use(cors(corsOptions));
 
 app.use(session({ secret: process.env.TOKEN_KEY, resave: false, saveUninitialized: true }));
 
-//app.use(passport.initialize());
-//app.use(passport.session());
-
 app.use(compression()); //Compress all routes
 app.use(helmet());
 
